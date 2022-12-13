@@ -32,9 +32,44 @@
         targetArticle.classList.add('active');
     }
 
-    const links = document.querySelectorAll('.titles a');
+    const optArticleSelector = '.post',
+        optTitleSelector = '.post-title',
+        optTitleListSelector = '.titles'
 
-    for(let link of links){
-        link.addEventListener('click', titleClickHandler);
+    function generateTitleLinks(){
+        /* remove contents of titleList */
+        const titleList = document.querySelector(optTitleListSelector);
+        console.log(titleList);
+        function clearMessages(){
+        titleList.innerHTML = '';
+        }
+        clearMessages();
+        /* for each article */
+        const articles = document.querySelectorAll(optArticleSelector)
+        let html = '';
+        for(let article of articles) {
+            /* get the article id */
+            const articleID = article.getAttribute('id');
+            console.log(articleID);
+            /* find the title element */
+            const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+            console.log(articleTitle);
+            /* get the title from the title element */
+
+            /* create html of the link */
+            const linkHTML = '<li><a href="#' + articleID + '"><span>' + articleTitle + '</span></a></li>';
+            console.log(linkHTML);
+            html = html + linkHTML
+            /* insert link into titleList */
+            titleList.innerHTML = html;
+        }
+        console.log(html);
+        const links = document.querySelectorAll('.titles a');
+
+        for(let link of links){
+            link.addEventListener('click', titleClickHandler);
+        }
+        console.log(links);
     }
+    generateTitleLinks();
 }
