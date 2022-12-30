@@ -74,6 +74,38 @@ body {
   text-align: center;
 }
 
+/* Tags */
+/*body > div > div > main > aside:nth-child(3) > ul*/
+aside:nth-child(3) > ul li {
+  display: inline;
+  a {
+    text-decoration: none;
+  }
+  .tag-size-1 {
+    font-size: 30px;
+    color: #00a8ff;
+  }
+  .tag-size-2 {
+    font-size: 25px;
+    color: #9c88ff;
+  }
+  .tag-size-3 {
+    font-size: 20px;
+    color: #fbc531;
+  }
+  .tag-size-4 {
+    font-size: 15px;
+    color: #4cd137;
+  }
+  .tag-size-5 {
+    font-size: 10;
+    color: #2f3640;
+  }
+  .tag-size-6 {
+    font-size: 5px;
+    color: #000;
+  }
+}
 /* Lists */
 
 .list {
