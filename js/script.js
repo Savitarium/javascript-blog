@@ -2,7 +2,6 @@
 {
     /*document.getElementById('test-button').addEventListener('click', function(){
         const links = document.querySelectorAll('.titles a');
-        console.log ('links:', links);
     });*/
     const titleClickHandler = function (event){
         event.preventDefault();
@@ -34,6 +33,7 @@
         optArticleTagsSelector = '.post-tags .list',
         optArticleAuthorSelector = '.post-author',
         optTagsListSelector = '.tags.list',
+        optAuthorsListSelector = '.authors.list',
         optCloudClassCount = 5,
         optCloudClassPrefix = 'tag-size-'
 
@@ -184,6 +184,7 @@
     }
     addClickListenersToTags();
     function generateAuthors() {
+        let allAuthors = {};
         /* find all articles */
         const articles = document.querySelectorAll(optArticleSelector)
         /* START LOOP: for every article: */
@@ -192,16 +193,32 @@
             const authorList = article.querySelector(optArticleAuthorSelector);
             /* make html variable with empty string */
             let html = '';
+            const author = article.getAttribute('data-author');
             /* get authors from data-tags attribute */
             const articleAuthor = article.getAttribute('data-author');
             /* generate HTML of the link */
-            const linkHTML = '<a href="#author-' + articleAuthor + '">' + "by " + articleAuthor + '</a>';
+            const linkHTML = '<p class="post-author"><a href="#author-' + author + '">' + author + '</a></p>';
             /* add generated code to html variable */
             html = html + linkHTML;
+            /* [NEW] check if this link is NOT already in allTags */
+            if(!allAuthors[author]){
+                /* [NEW] add generated code to allTags array */
+                allAuthors[author] = 1;
+            } else {
+                allAuthors[author]++;
+            }
             /* insert HTML of all the links into the tags wrapper */
             authorList.innerHTML = html;
             /* END LOOP: for every article: */
         }
+        const authorsList = document.querySelector(optAuthorsListSelector);
+        const authorsParams = calculateTagsParams(allAuthors);
+        let allAuthorsHTML = '';
+        for(let author in allAuthors){
+            allAuthorsHTML += '<li><a href="#tag-' + author + '" class="' + optCloudClassPrefix + calculateTagClass(allAuthors[author], authorsParams) + '">' + author + ' ' + '</a></li>';
+        }
+        authorsList.innerHTML = allAuthorsHTML;
+        console.log(authorsList);
     }
     generateAuthors();
 
